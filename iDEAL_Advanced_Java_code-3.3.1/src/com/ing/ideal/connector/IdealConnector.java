@@ -64,8 +64,13 @@ public class IdealConnector {
         if (Util.log.isTraceEnabled())
             Util.log.trace(">> new IdealConnector(String)");
 
-        config = new Config();
+        Config config = new Config();
         config.init(configuration);
+        init(config);
+    }
+
+    private void init(Config config) throws IdealException{
+        this.config = config;
 
         KeyStoreItem merchantKS = CryptoHelper.createKeyStoreItem(config.get(Config.MERCHANT_KEY_STORE_FILENAME), config.get(Config.MERCHANT_KEY_STORE_PASSWORD), config.get(Config.PRIVATE_CERT));
         KeyStoreItem acquirerKS = CryptoHelper.createKeyStoreItem(config.get(Config.ACQUIRER_KEY_STORE_FILENAME), config.get(Config.ACQUIRER_KEY_STORE_PASSWORD), config.get(Config.PUBLIC_CERT));
